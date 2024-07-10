@@ -77,13 +77,13 @@ flutter:
   fonts:
     - family: Open-Sans-Bold
       fonts:
-        - asset: assets/fonts/OpenSans-BoldItalic.ttf
-        # - asset: fonts/Schyler-Italic.ttf
-          # style: italic
-    - family: Open-Sans-Medium
-      fonts:
-        - asset: assets/fonts/OpenSans-Medium.ttf
-        # - asset: fonts/TrajanPro_Bold.ttf
+    #     - asset: assets/fonts/OpenSans-BoldItalic.ttf
+    #     # - asset: fonts/Schyler-Italic.ttf
+    #       # style: italic
+    # - family: Open-Sans-Medium
+    #   fonts:
+    #     - asset: assets/fonts/OpenSans-Medium.ttf
+    #     # - asset: fonts/TrajanPro_Bold.ttf
         #   weight: 700
   #
   # For details regarding fonts from package dependencies,

@@ -14,7 +14,7 @@ class ListTiles extends StatelessWidget {
         ),
         Container(
           height: 80,
-          width: 350,
+          width: 400,
           margin: EdgeInsets.only(bottom: 8), // Add margin between items
           decoration: BoxDecoration(
             color: Colors.grey.shade200,

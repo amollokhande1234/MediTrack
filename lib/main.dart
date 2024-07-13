@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meditrack/Screens/home_screen.dart';
+import 'package:meditrack/Screens/HomeSceen.dart';
 import 'package:meditrack/Screens/welcome_screeen.dart';
 
 void main() {

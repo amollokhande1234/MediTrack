@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:meditrack/Screens/ListTiles.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
+    return SingleChildScrollView(
+      child: Padding(
         padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,6 +22,12 @@ class HomeScreen extends StatelessWidget {
               "Today's Plan: ",
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
+            SizedBox(height: 25),
+            ListTiles(),
+            SizedBox(height: 25),
+            ListTiles(),
+            SizedBox(height: 25),
+            ListTiles(),
             SizedBox(height: 25),
             ListTiles(),
             SizedBox(height: 25),

@@ -1,7 +1,87 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
-class AddReminderPage extends StatelessWidget {
+class AddReminderPage extends StatefulWidget {
   const AddReminderPage({super.key});
+
+  @override
+  State<AddReminderPage> createState() => _AddReminderPageState();
+}
+
+class _AddReminderPageState extends State<AddReminderPage> {
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  DateTime? _selectedDate;
+  TimeOfDay? _selectedTime;
+
+  @override
+  void initState() {
+    super.initState();
+    tz.initializeTimeZones();
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    const initializationSettingsAndroid =
+        AndroidInitializationSettings('app_icon');
+    const initializationSettings =
+        InitializationSettings(android: initializationSettingsAndroid);
+    flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  }
+
+  Future<void> _scheduleNotification() async {
+    if (_selectedDate != null && _selectedTime != null) {
+      final now = DateTime.now();
+      final scheduledDateTime = DateTime(
+        _selectedDate!.year,
+        _selectedDate!.month,
+        _selectedDate!.day,
+        _selectedTime!.hour,
+        _selectedTime!.minute,
+      );
+
+      if (scheduledDateTime.isAfter(now)) {
+        final scheduledTZDateTime = tz.TZDateTime.from(
+          scheduledDateTime,
+          tz.local,
+        );
+
+        const androidPlatformChannelSpecifics = AndroidNotificationDetails(
+            'your_channel_id', 'your_channel_name',
+            importance: Importance.max,
+            priority: Priority.high,
+            showWhen: false);
+
+        const platformChannelSpecifics =
+            NotificationDetails(android: androidPlatformChannelSpecifics);
+
+        await flutterLocalNotificationsPlugin.zonedSchedule(
+          0,
+          'Scheduled Notification',
+          'This notification was scheduled to show at your selected time and date.',
+          scheduledTZDateTime,
+          platformChannelSpecifics,
+          androidAllowWhileIdle: true,
+          uiLocalNotificationDateInterpretation:
+              UILocalNotificationDateInterpretation.absoluteTime,
+          matchDateTimeComponents: DateTimeComponents.time,
+        );
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text('Notification scheduled for $scheduledDateTime')),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text(
+                  'Selected time is in the past. Please select a future time.')),
+        );
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Please select both time and date.')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,9 +163,23 @@ class AddReminderPage extends StatelessWidget {
                           Column(
                             children: [
                               // Buttons
-                              DateButton(text: "Date"),
+                              DateButton(
+                                text: "Date",
+                                onDateSelected: (selectedDate) => {
+                                  setState(() {
+                                    _selectedDate = selectedDate;
+                                  })
+                                },
+                              ),
                               SizedBox(height: 20),
-                              TimeButton(text: "Time"),
+                              TimeButton(
+                                text: "Time",
+                                onTimeSelected: (selectedTime) => {
+                                  setState(() {
+                                    _selectedTime = selectedTime;
+                                  })
+                                },
+                              ),
                             ],
                           )
                         ],
@@ -96,7 +190,9 @@ class AddReminderPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 30),
-            AddMedicineButton(),
+            AddMedicineButton(
+              onpressed: _scheduleNotification,
+            ),
           ],
         ),
       ),
@@ -107,7 +203,8 @@ class AddReminderPage extends StatelessWidget {
 ///////////////////////////////////////////////////////////////////////////////
 
 class AddMedicineButton extends StatefulWidget {
-  const AddMedicineButton({super.key});
+  final VoidCallback onpressed;
+  const AddMedicineButton({super.key, required this.onpressed});
 
   @override
   State<AddMedicineButton> createState() => _AddMedicineButtonState();
@@ -127,7 +224,7 @@ class _AddMedicineButtonState extends State<AddMedicineButton> {
         borderRadius: BorderRadius.circular(8),
       ),
       child: TextButton(
-          onPressed: () {},
+          onPressed: widget.onpressed,
           child: Text(
             "Add Medicines",
             style: TextStyle(
@@ -142,7 +239,9 @@ class _AddMedicineButtonState extends State<AddMedicineButton> {
 // Date Button
 class DateButton extends StatefulWidget {
   final String text;
-  const DateButton({super.key, required this.text});
+  final ValueChanged<DateTime> onDateSelected;
+  const DateButton(
+      {super.key, required this.text, required this.onDateSelected});
 
   @override
   State<DateButton> createState() => _DateButtonState();
@@ -170,6 +269,7 @@ class _DateButtonState extends State<DateButton> {
                 if (datePicked != null) {
                   setState(() {
                     _selectDate = datePicked;
+                    widget.onDateSelected(_selectDate!);
                   });
                 }
               },
@@ -203,10 +303,16 @@ class _DateButtonState extends State<DateButton> {
   }
 }
 
+class IOSNotificationDetails {
+  const IOSNotificationDetails();
+}
+
 // Time Button
 class TimeButton extends StatefulWidget {
   final String text;
-  const TimeButton({super.key, required this.text});
+  final ValueChanged<TimeOfDay> onTimeSelected;
+  const TimeButton(
+      {super.key, required this.text, required this.onTimeSelected});
 
   @override
   State<TimeButton> createState() => _TimeButtonState();
@@ -231,6 +337,7 @@ class _TimeButtonState extends State<TimeButton> {
                 if (pickedTime != null) {
                   setState(() {
                     _selectTime = pickedTime;
+                    widget.onTimeSelected(_selectTime!);
                   });
                 }
               },

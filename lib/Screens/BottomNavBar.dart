@@ -29,9 +29,9 @@ class CustomBottomNavBar extends StatelessWidget {
           ),
         ),
         BottomNavigationBarItem(
-          label: "Medicine",
+          label: "Call",
           icon: Icon(
-            Icons.medication_rounded,
+            Icons.call_made,
           ),
         ),
         BottomNavigationBarItem(

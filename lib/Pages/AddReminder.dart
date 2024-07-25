@@ -1,7 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -239,135 +236,6 @@ class _AddMedicineButtonState extends State<AddMedicineButton> {
   }
 }
 
-// // Date Button
-// class DateButton extends StatefulWidget {
-//   final String text;
-//   final ValueChanged<DateTime> onDateSelected;
-//   const DateButton(
-//       {super.key, required this.text, required this.onDateSelected});
-
-//   @override
-//   State<DateButton> createState() => _DateButtonState();
-// }
-
-// class _DateButtonState extends State<DateButton> {
-//   DateTime? _selectDate;
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: const EdgeInsets.only(top: 10.0),
-//       child: Container(
-//         width: 100,
-//         height: 80,
-//         // color: Colors.amber,
-//         child: Column(
-//           children: [
-//             TextButton(
-//               onPressed: () async {
-//                 DateTime? datePicked = await showDatePicker(
-//                   context: context,
-//                   firstDate: DateTime.now(),
-//                   lastDate: DateTime(2025),
-//                 );
-//                 if (datePicked != null) {
-//                   setState(() {
-//                     _selectDate = datePicked;
-//                     widget.onDateSelected(_selectDate!);
-//                   });
-//                 }
-//               },
-//               style: ElevatedButton.styleFrom(
-//                 fixedSize: Size(100, 20),
-//                 foregroundColor: Colors.white,
-//                 backgroundColor: Colors.blue, // Text color
-//                 padding:
-//                     EdgeInsets.symmetric(vertical: 5.0), // Vertical padding
-//                 textStyle: TextStyle(fontSize: 16), // Text style
-//                 shape: RoundedRectangleBorder(
-//                   borderRadius: BorderRadius.circular(8.0), // Rounded corners
-//                 ),
-//               ),
-//               child: Text(widget.text),
-//             ),
-//             SizedBox(height: 5),
-//             Text(
-//               _selectDate != null
-//                   ? '${_selectDate?.day}/${_selectDate?.month}/${_selectDate?.year}'
-//                   : 'dd/mm/yyyy',
-//               style: TextStyle(
-//                   fontSize: 16,
-//                   color: Colors.black,
-//                   fontWeight: FontWeight.w600),
-//             )
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// // Time Button
-// class TimeButton extends StatefulWidget {
-//   final String text;
-//   final ValueChanged<TimeOfDay> onTimeSelected;
-//   const TimeButton(
-//       {super.key, required this.text, required this.onTimeSelected});
-
-//   @override
-//   State<TimeButton> createState() => _TimeButtonState();
-// }
-
-// class _TimeButtonState extends State<TimeButton> {
-//   TimeOfDay? _selectTime;
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: const EdgeInsets.only(top: 15.0),
-//       child: Container(
-//         width: 100,
-//         height: 80,
-//         // color: Colors.amber,
-//         child: Column(
-//           children: [
-//             ElevatedButton(
-//               onPressed: () async {
-//                 TimeOfDay? pickedTime = await showTimePicker(
-//                     context: context, initialTime: TimeOfDay.now());
-//                 if (pickedTime != null) {
-//                   setState(() {
-//                     _selectTime = pickedTime;
-//                     widget.onTimeSelected(_selectTime!);
-//                   });
-//                 }
-//               },
-//               style: ElevatedButton.styleFrom(
-//                 fixedSize: Size(100, 30),
-//                 foregroundColor: Colors.white,
-//                 backgroundColor: Colors.blue, // Text color
-//                 padding: EdgeInsets.symmetric(vertical: .0), // Vertical padding
-//                 textStyle: TextStyle(fontSize: 16), // Text style
-//                 shape: RoundedRectangleBorder(
-//                   borderRadius: BorderRadius.circular(8.0), // Rounded corners
-//                 ),
-//               ),
-//               child: Text(widget.text),
-//             ),
-//             Text(
-//               _selectTime != null
-//                   ? "${_selectTime?.minute}:${_selectTime?.hour}"
-//                   : "mm : yy",
-//               style: TextStyle(
-//                   fontSize: 16,
-//                   color: Colors.black,
-//                   fontWeight: FontWeight.w600),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 /////////////
 class CustomCheckBox extends StatefulWidget {
   final String text;
@@ -379,14 +247,6 @@ class CustomCheckBox extends StatefulWidget {
 
 class _CustomCheckBoxState extends State<CustomCheckBox> {
   bool? isChecked = false;
-
-  // late String _text;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _text = widget.text;
-  // }
 
   @override
   Widget build(BuildContext context) {

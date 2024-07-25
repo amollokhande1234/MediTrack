@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meditrack/Pages/AddReminder.dart';
 import 'package:meditrack/Pages/HishtoryPage.dart';
 import 'package:meditrack/Pages/HomePage.dart';
-import 'package:meditrack/Pages/MedicinePage.dart';
+import 'package:meditrack/Pages/Cantact/MedicinePage.dart';
 import 'package:meditrack/Pages/ProfilePage.dart';
 import 'package:meditrack/Screens/ListTiles.dart';
 
@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
           HomePage(),
           HistoryPage(),
           AddReminderPage(),
-          MedicinePage(),
+          EmergencyContact(),
           ProfilePage(),
         ],
         onPageChanged: (index) {
@@ -65,8 +65,8 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Add Medication',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.medication_rounded),
-            label: 'Medicines',
+            icon: Icon(Icons.contact_emergency),
+            label: 'Contacts',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

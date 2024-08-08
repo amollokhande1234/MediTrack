@@ -9,43 +9,43 @@ class CustomBottomNavBar extends StatelessWidget {
     return BottomNavigationBar(
       // backgroundColor: Color.fromARGB(255, 195, 63, 63),
       type: BottomNavigationBarType.fixed,
-      items: [
+      items: const [
         BottomNavigationBarItem(
           label: "Home",
           icon: Icon(
             Icons.home,
           ),
         ),
-        BottomNavigationBarItem(
-          label: "History",
-          icon: Icon(
-            Icons.history,
-          ),
-        ),
-        BottomNavigationBarItem(
-          label: "Add Medications",
-          icon: Icon(
-            Icons.add_circle_rounded,
-          ),
-        ),
+        // BottomNavigationBarItem(
+        //   label: "History",
+        //   icon: Icon(
+        //     Icons.history,
+        //   ),
+        // ),
+        // BottomNavigationBarItem(
+        //   label: "Add Medications",
+        //   icon: Icon(
+        //     Icons.add_circle_rounded,
+        //   ),
+        // ),
         BottomNavigationBarItem(
           label: "Call",
           icon: Icon(
             Icons.call_made,
           ),
         ),
-        BottomNavigationBarItem(
-          label: "Profile",
-          icon: IconButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => AddReminderPage()));
-            },
-            icon: Icon(
-              Icons.person,
-            ),
-          ),
-        ),
+        // BottomNavigationBarItem(
+        //   label: "Profile",
+        //   icon: IconButton(
+        //     onPressed: () {
+        //       Navigator.push(context,
+        //           MaterialPageRoute(builder: (context) => AddReminderPage()));
+        //     },
+        //     icon: Icon(
+        //       Icons.person,
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }

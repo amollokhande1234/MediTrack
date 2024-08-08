@@ -34,14 +34,6 @@ class _EmergencyContactState extends State<EmergencyContact> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Emergency Contacts",
-          style: TextStyle(color: Colors.white),
-        ),
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 34, 115, 182),
-      ),
       body: Container(
         width: MediaQuery.of(context).size.width,
         child: Column(
@@ -134,9 +126,9 @@ class _EmergencyContactState extends State<EmergencyContact> {
                 }
               },
               style: OutlinedButton.styleFrom(
-                backgroundColor: Colors.blue,
+                backgroundColor: Colors.deepPurpleAccent[100],
                 side: const BorderSide(
-                  color: Colors.blue, // Border color
+                  color: Colors.white, // Border color
                   width: 2.0, // Border width
                 ),
                 padding: const EdgeInsets.symmetric(
@@ -176,7 +168,7 @@ class _EmergencyContactState extends State<EmergencyContact> {
                 ),
               ),
             ),
-            Spacer(),
+            // Spacer(),
             Expanded(
               child: contacts.isEmpty
                   ? Text(

@@ -1,15 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:meditrack/DateTimePicker/syncfusion_datetime_picker.dart';
-import 'package:meditrack/Pages/Cantact/AddContact.dart';
-import 'package:meditrack/Pages/Cantact/MedicinePage.dart';
-// import 'package:meditrack/DateTimePicker/DateTimePicker.dart';
-// import 'package:meditrack/DateTimePicker/DemoNotification.dart';
-// import 'package:meditrack/DateTimePicker/NotificatiionDemo.dart';
+import 'package:meditrack/Pages/CustomDrawer.dart';
 import 'package:meditrack/Screens/HomeSceen.dart';
-
-// import 'package:timezone/data/latest.dart' as tz;
-// import 'package:flutter_datetime_picker/src/datetime_picker_theme.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,6 +15,7 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       builder: (context, child) => MaterialApp(
         debugShowCheckedModeBanner: false,
+        // home: CustomDrawer(),
         home: HomeScreen(),
         // home: const AddContact(),
         // home: EmergencyContact(),

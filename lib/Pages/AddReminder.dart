@@ -1,16 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:meditrack/Pages/HomePage.dart';
+import 'package:meditrack/Screens/HomeSceen.dart';
+import 'package:meditrack/Screens/ListTiles.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 class AddReminderPage extends StatefulWidget {
-  const AddReminderPage({super.key});
+  final Function(Map<String, String>)? onMedicineAdded;
+  const AddReminderPage({Key? key, this.onMedicineAdded}) : super(key: key);
 
   @override
   State<AddReminderPage> createState() => _AddReminderPageState();
 }
 
+class GridItem {
+  final String title;
+  GridItem({required this.title});
+}
+
 class _AddReminderPageState extends State<AddReminderPage> {
+  final TextEditingController medicineNameController = TextEditingController();
+  final TextEditingController instructionController = TextEditingController();
+
+  List<GridItem> gridItms = [];
+  void addGridItem() {
+    setState(() {
+      Navigator.push(
+              context, MaterialPageRoute(builder: (context) => HomePage()))
+          .then((GridItem) {
+        if (GridItem != null) {
+          setState(() {
+            gridItms.add(GridItem);
+          });
+        }
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,57 +66,17 @@ class _AddReminderPageState extends State<AddReminderPage> {
                       style: TextStyle(fontSize: 20, color: Colors.blue),
                     ),
                     const SizedBox(height: 10),
-                    const CustomContainer(hint: "Medicine Name"),
+                    CustomContainer(
+                      // hint: "Medicine Name",
+                      hint: "Add Medicine",
+                      controller: medicineNameController,
+                    ),
                     const SizedBox(height: 15),
-                    const CustomContainer(hint: "Instruction"),
+                    CustomContainer(
+                      hint: "Instruction",
+                      controller: instructionController,
+                    ),
                     const SizedBox(height: 25),
-                    // Container(
-                    //   width: 350,
-                    //   height: 230,
-                    //   decoration: BoxDecoration(
-                    //     border: Border.all(
-                    //         color: Color.fromARGB(255, 160, 154, 154),
-                    //         width: 2),
-                    //     borderRadius: BorderRadius.circular(30),
-                    //   ),
-                    //   child: const Row(
-                    //     children: [
-                    //       // CheckBox Column
-                    //       Padding(
-                    //         padding: const EdgeInsets.only(top: 18.0, left: 5),
-                    //         child: Column(
-                    //           crossAxisAlignment: CrossAxisAlignment.start,
-                    //           children: [
-                    //             // Check BOx
-                    //             CustomCheckBox(
-                    //               text: "Daily",
-                    //             ),
-                    //             CustomCheckBox(
-                    //               text: "Monthly",
-                    //             ),
-                    //             CustomCheckBox(
-                    //               text: "Weekly",
-                    //             ),
-                    //             CustomCheckBox(
-                    //               text: "Alternative",
-                    //             ),
-                    //           ],
-                    //         ),
-                    //       ),
-                    //       SizedBox(width: 30),
-                    //       VerticalDivider(
-                    //         color: Colors.grey, // The color of the divider
-                    //         thickness: 1, // The thickness of the divider
-                    //         width: 20, // The width of the divider
-                    //         indent:
-                    //             8, // Empty space to the leading edge of the divider
-                    //         endIndent:
-                    //             8, // Empty space to the trailing edge of the divider
-                    //       ),
-                    //       SizedBox(width: 10),
-                    //     ],
-                    //   ),
-                    // ),
                   ],
                 ),
               ),
@@ -98,8 +85,39 @@ class _AddReminderPageState extends State<AddReminderPage> {
             DateTimePIcker(),
             SizedBox(height: 30),
             AddMedicineButton(
-              onpressed: () {},
-              // onpressed: _scheduleNotification,
+              onpressed: () {
+                if (medicineNameController.text.isNotEmpty) {
+                  items.add(medicineNameController.text);
+                } else {
+                  items.add("Tablet");
+                }
+                setState(() {
+                  Navigator.of(context).pop();
+                  showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: Center(
+                        child: medicineNameController.text.isEmpty
+                            ? Text("Tablet")
+                            : Text(medicineNameController.text),
+                      ),
+                      content: const Text(
+                          'Your medicine has been successfully added to your reminders.'),
+                      actions: <Widget>[
+                        Container(
+                          width: 300,
+                          child: ElevatedButton(
+                            onPressed: () =>
+                                Navigator.pop(context, 'Show Medicines'),
+                            child: const Text('Show Medicines'),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                  print("added");
+                });
+              },
             ),
           ],
         ),
@@ -284,7 +302,9 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
 
 class CustomContainer extends StatelessWidget {
   final String hint;
-  const CustomContainer({super.key, required this.hint});
+  final TextEditingController controller;
+  const CustomContainer(
+      {super.key, required this.hint, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -296,6 +316,7 @@ class CustomContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(30),
       ),
       child: TextField(
+        controller: controller,
         style: TextStyle(
           fontSize: 19,
         ),

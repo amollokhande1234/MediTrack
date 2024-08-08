@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meditrack/Pages/AddReminder.dart';
+import 'package:meditrack/Pages/CustomDrawer.dart';
 import 'package:meditrack/Pages/HishtoryPage.dart';
 import 'package:meditrack/Pages/HomePage.dart';
 import 'package:meditrack/Pages/Cantact/MedicinePage.dart';
@@ -34,14 +35,22 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("M E D I T R A C K"),
+        centerTitle: true,
+        backgroundColor: Colors.deepPurple[300],
+        foregroundColor: Colors.white,
+        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.person))],
+      ),
+      drawer: CustomDrawer(),
       body: PageView(
         controller: _pageController,
         children: <Widget>[
           HomePage(),
-          HistoryPage(),
-          AddReminderPage(),
           EmergencyContact(),
-          ProfilePage(),
+          HistoryPage(),
+          // // AddReminderPage(),
+          // ProfilePage(),
         ],
         onPageChanged: (index) {
           setState(() {
@@ -56,26 +65,37 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(Icons.home),
             label: 'Home',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.history),
-            label: 'History',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add_circle_outline_rounded),
-            label: 'Add Medication',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.history),
+          //   label: 'History',
+          // ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.add_circle_outline_rounded),
+          //   label: 'Add Medication',
+          // ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.person),
+          //   label: 'Profile',
+          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.contact_emergency),
             label: 'Contacts',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
           ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
         onTap: _onItemTapped,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddReminderPage(),
+            ),
+          );
+        },
+        child: Icon(Icons.add),
       ),
     );
   }

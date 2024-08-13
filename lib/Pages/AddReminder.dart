@@ -43,83 +43,87 @@ class _AddReminderPageState extends State<AddReminderPage> {
     return Scaffold(
       appBar: AppBar(
         // backgroundColor: Colors.lightGreen,
-        backgroundColor: const Color.fromARGB(255, 7, 62, 87),
+        backgroundColor: Colors.deepPurple[300],
+        foregroundColor: Colors.white,
         title: const Text(
-          "Add Medicine",
-          style: TextStyle(
-            color: Colors.amberAccent,
-          ),
+          "Add Medicines",
+          style: TextStyle(fontWeight: FontWeight.bold
+              // color: Colors.amberAccent,
+              ),
         ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Column(
-          children: [
-            Container(
-              child: Align(
-                alignment: Alignment.center,
-                child: Column(
-                  children: [
-                    const Text(
-                      "Medicine Information",
-                      style: TextStyle(fontSize: 20, color: Colors.blue),
-                    ),
-                    const SizedBox(height: 10),
-                    CustomContainer(
-                      // hint: "Medicine Name",
-                      hint: "Add Medicine",
-                      controller: medicineNameController,
-                    ),
-                    const SizedBox(height: 15),
-                    CustomContainer(
-                      hint: "Instruction",
-                      controller: instructionController,
-                    ),
-                    const SizedBox(height: 25),
-                  ],
+      body: Container(
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            children: [
+              Container(
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Medicine Information",
+                        style:
+                            TextStyle(fontSize: 20, color: Colors.deepPurple),
+                      ),
+                      const SizedBox(height: 10),
+                      CustomContainer(
+                        // hint: "Medicine Name",
+                        hint: "Add Medicine",
+                        controller: medicineNameController,
+                      ),
+                      const SizedBox(height: 15),
+                      CustomContainer(
+                        hint: "Instruction",
+                        controller: instructionController,
+                      ),
+                      const SizedBox(height: 25),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 30),
-            DateTimePIcker(),
-            SizedBox(height: 30),
-            AddMedicineButton(
-              onpressed: () {
-                if (medicineNameController.text.isNotEmpty) {
-                  items.add(medicineNameController.text);
-                } else {
-                  items.add("Tablet");
-                }
-                setState(() {
-                  Navigator.of(context).pop();
-                  showDialog<String>(
-                    context: context,
-                    builder: (BuildContext context) => AlertDialog(
-                      title: Center(
-                        child: medicineNameController.text.isEmpty
-                            ? Text("Tablet")
-                            : Text(medicineNameController.text),
-                      ),
-                      content: const Text(
-                          'Your medicine has been successfully added to your reminders.'),
-                      actions: <Widget>[
-                        Container(
-                          width: 300,
-                          child: ElevatedButton(
-                            onPressed: () =>
-                                Navigator.pop(context, 'Show Medicines'),
-                            child: const Text('Show Medicines'),
-                          ),
+              SizedBox(height: 30),
+              DateTimePIcker(),
+              SizedBox(height: 30),
+              AddMedicineButton(
+                onpressed: () {
+                  if (medicineNameController.text.isNotEmpty) {
+                    items.add(medicineNameController.text);
+                  } else {
+                    items.add("Tablet");
+                  }
+                  setState(() {
+                    Navigator.of(context).pop();
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: Center(
+                          child: medicineNameController.text.isEmpty
+                              ? Text("Tablet")
+                              : Text(medicineNameController.text),
                         ),
-                      ],
-                    ),
-                  );
-                  print("added");
-                });
-              },
-            ),
-          ],
+                        content: const Text(
+                            'Your medicine has been successfully added to your reminders.'),
+                        actions: <Widget>[
+                          Container(
+                            width: 300,
+                            child: ElevatedButton(
+                              onPressed: () =>
+                                  Navigator.pop(context, 'Show Medicines'),
+                              child: const Text('Show Medicines'),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                    print("added");
+                  });
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -200,11 +204,13 @@ class _DateTimePIckerState extends State<DateTimePIcker> {
     return OutlinedButton(
       style: ButtonStyle(
         alignment: Alignment.center,
+        // backgroundColor: Colors.deepPurple[100],
         backgroundColor: MaterialStateProperty.all<Color>(
-            const Color.fromARGB(255, 31, 99, 131)),
+          Color.fromARGB(255, 163, 133, 238),
+        ),
         foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
         side: MaterialStateProperty.all<BorderSide>(
-          BorderSide(color: const Color.fromARGB(255, 92, 97, 101), width: 2.0),
+          BorderSide(color: const Color.fromARGB(255, 92, 97, 101), width: 0.0),
         ),
         padding: MaterialStateProperty.all<EdgeInsets>(
           EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
@@ -237,13 +243,14 @@ class _AddMedicineButtonState extends State<AddMedicineButton> {
       width: 350,
       decoration: BoxDecoration(
         // color: Colors.amber,
-        color: Color.fromARGB(255, 32, 131, 218),
+        // color: Color.fromARGB(255, 32, 131, 218),
+        color: Colors.deepPurple[400],
         border: Border.all(color: Color.fromARGB(255, 160, 154, 154), width: 1),
         borderRadius: BorderRadius.circular(8),
       ),
       child: TextButton(
           onPressed: widget.onpressed,
-          child: Text(
+          child: const Text(
             "Add Medicines",
             style: TextStyle(
               fontSize: 18,

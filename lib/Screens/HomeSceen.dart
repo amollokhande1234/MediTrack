@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:meditrack/Pages/AddReminder.dart';
 import 'package:meditrack/Pages/CustomDrawer.dart';
-import 'package:meditrack/Pages/HishtoryPage.dart';
 import 'package:meditrack/Pages/HomePage.dart';
-import 'package:meditrack/Pages/Cantact/MedicinePage.dart';
+import 'package:meditrack/Pages/Cantact/ContactScreen.dart';
 import 'package:meditrack/Pages/ProfilePage.dart';
 import 'package:meditrack/Screens/ListTiles.dart';
 
@@ -40,7 +39,14 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         backgroundColor: Colors.deepPurple[300],
         foregroundColor: Colors.white,
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.person))],
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => PatientInfoPage()));
+              },
+              icon: Icon(Icons.person))
+        ],
       ),
       drawer: CustomDrawer(),
       body: PageView(
@@ -48,12 +54,13 @@ class _HomeScreenState extends State<HomeScreen> {
         children: <Widget>[
           HomePage(),
           EmergencyContact(),
-          HistoryPage(),
+          // HishtoryMedicines(),
           // // AddReminderPage(),
           // ProfilePage(),
         ],
         onPageChanged: (index) {
           setState(() {
+            int index = 1;
             _selectedIndex = index;
           });
         },
@@ -65,18 +72,6 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(Icons.home),
             label: 'Home',
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.history),
-          //   label: 'History',
-          // ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.add_circle_outline_rounded),
-          //   label: 'Add Medication',
-          // ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.person),
-          //   label: 'Profile',
-          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.contact_emergency),
             label: 'Contacts',
@@ -100,25 +95,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-
-// class AddReminderPage extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Text("Hello");
-//   }
-// }
-
-// class AddReminderPage extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Add Reminder'),
-//       ),
-//       body: Center(
-//         child: Text('Add Reminder Page'),
-//       ),
-//     );
-//   }
-// }

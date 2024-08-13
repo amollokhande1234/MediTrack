@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:meditrack/Pages/CustomDrawer.dart';
+import 'package:meditrack/Pages/HishtoryPage.dart';
 import 'package:meditrack/Screens/HomeSceen.dart';
 
 void main() {
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         // home: CustomDrawer(),
         home: HomeScreen(),
+        // home: HishtoryMedicines(),
         // home: const AddContact(),
         // home: EmergencyContact(),
         // home: DemoNotification(),

@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:meditrack/Pages/Cantact/Contact.dart';
-import 'package:meditrack/Pages/Cantact/MedicinePage.dart';
+import 'package:meditrack/Pages/Cantact/ContactScreen.dart';
 import 'package:meditrack/Widgets/CustomTextFeild.dart';
 import 'package:permission_handler/permission_handler.dart';
 

@@ -1,4 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:meditrack/Pages/ApointmentPage.dart';
+import 'package:meditrack/Pages/HishtoryPage.dart';
+import 'package:meditrack/Pages/HomePage.dart';
+import 'package:meditrack/Screens/HomeSceen.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
@@ -58,40 +63,91 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 ),
               ),
             ),
-
-            // width: 400,
-            // color: Colors.amber,
-            // child: Center(
-            //   child: Column(
-            //     mainAxisAlignment:
-            //         MainAxisAlignment.center, // Center items vertically
-            //     crossAxisAlignment:
-            //         CrossAxisAlignment.center, // Center items horizontally
-            //     children: [
-            //       CustomListItems(
-            //         icons: Icon(Icons.home_outlined),
-            //         name: "Home",
-            //       ),
-            //       CustomListItems(
-            //         icons: Icon(Icons.home_outlined),
-            //         name: "Medicine Info",
-            //       ),
-            //       CustomListItems(
-            //         icons: Icon(Icons.home_outlined),
-            //         name: "History",
-            //       ),
-            //       CustomListItems(
-            //         icons: Icon(Icons.home_outlined),
-            //         name: "Appointments",
-            //       ),
-            //       CustomListItems(
-            //         icons: Icon(Icons.home_outlined),
-            //         name: "Log Out",
-            //         cls: Color.fromARGB(255, 240, 136, 146),
-            //       ),
-            //     ],
-            //   ),
-            // ),
+            Container(
+              height: 300,
+              decoration: BoxDecoration(
+                color: Colors.deepPurple[100],
+                borderRadius: const BorderRadius.vertical(
+                  bottom: Radius.circular(20),
+                ),
+              ),
+              child: ListView(
+                padding: EdgeInsets.all(0),
+                children: [
+                  CustomListItems(
+                    icons: Icon(Icons.home_outlined),
+                    ontap: () {
+                      setState(() {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomeScreen(),
+                          ),
+                        );
+                      });
+                    },
+                    name: "Home",
+                  ),
+                  CustomListItems(
+                    ontap: () {
+                      setState(() {
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => HishtoryMedicines(context),
+                        //   ),
+                        // );
+                      });
+                    },
+                    icons: Icon(Icons.history_outlined),
+                    name: "Hishtory",
+                  ),
+                  CustomListItems(
+                    ontap: () {
+                      setState(() {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AppointmentPage(),
+                          ),
+                        );
+                      });
+                    },
+                    icons: Icon(Icons.meeting_room_outlined),
+                    name: "Appointment",
+                  ),
+                  CustomListItems(
+                    ontap: () {
+                      setState(() {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomeScreen(),
+                          ),
+                        );
+                      });
+                    },
+                    icons: Icon(Icons.medical_information_outlined),
+                    name: "Medicine Info",
+                  ),
+                  CustomListItems(
+                    ontap: () {
+                      setState(() {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomeScreen(),
+                          ),
+                        );
+                      });
+                    },
+                    icons: Icon(Icons.logout_outlined),
+                    cls: Color.fromARGB(255, 233, 104, 95),
+                    name: "Log Out",
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -103,8 +159,14 @@ class CustomListItems extends StatefulWidget {
   final Icon icons;
   final String name;
   final Color? cls;
-  const CustomListItems(
-      {super.key, required this.icons, required this.name, this.cls});
+  final VoidCallback? ontap;
+  const CustomListItems({
+    super.key,
+    required this.icons,
+    required this.name,
+    this.cls,
+    this.ontap,
+  });
 
   @override
   State<CustomListItems> createState() => _CustomListItemsState();
@@ -113,17 +175,22 @@ class CustomListItems extends StatefulWidget {
 class _CustomListItemsState extends State<CustomListItems> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          Icon(
-            widget.icons.icon,
-            color: widget.cls ?? Colors.white,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 0.0),
-            child: Text(
+    return InkWell(
+      onTap: () {
+        if (widget.ontap != null) {
+          widget.ontap!(); // Call the provided ontap callback function
+        }
+        print("Clicked");
+      },
+      child: ListTile(
+        title: Row(
+          children: [
+            Icon(
+              widget.icons.icon,
+              color: widget.cls ?? Colors.white,
+            ),
+            SizedBox(width: 10),
+            Text(
               // "${widget.name}",
               widget.name,
               style: TextStyle(
@@ -132,8 +199,8 @@ class _CustomListItemsState extends State<CustomListItems> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

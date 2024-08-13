@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:meditrack/Pages/AddReminder.dart';
 import 'package:meditrack/Pages/HishtoryPage.dart';
 import 'package:meditrack/Screens/ListTiles.dart';
@@ -10,9 +11,22 @@ class HomePage extends StatefulWidget {
 }
 
 List<String> items = [];
-List<String> hishtory = [];
 
+// List<String> hishtory = [];
 class _HomePageState extends State<HomePage> {
+  // final _hishtoryItem = {};
+  final List<Map<String, String>> _hishtoryItmes = [];
+  void _addHishtoryItem(String medicineName) {
+    final now = DateTime.now();
+    final dateformat = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
+
+    setState(() {
+      // _hishtoryItem.add({'name': medicineName, 'date': dateformat});
+      // _hishtoryItem[dateformat];
+      _hishtoryItmes.add({'name': medicineName, 'date': dateformat});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -77,50 +91,55 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             IconButton(
                               onPressed: () {
-                                setState(() {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) => AlertDialog(
-                                      title: const Center(
-                                        child: Text(
-                                            "You have taken this medicine before. Do you want to add it to your history?"),
-                                      ),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
+                                setState(
+                                  () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        title: const Center(
                                           child: Text(
-                                            "Cansel",
-                                          ),
+                                              "You have taken this medicine before. Do you want to add it to your history?"),
                                         ),
-                                        TextButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              hishtory.add(items[index]);
-                                              HishtoryMedicines(
-                                                  table: hishtory[index]);
-                                              items.removeAt(index);
-                                              ScaffoldMessenger.of(context)
-                                                  .clearSnackBars();
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
                                               Navigator.of(context).pop();
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      HistoryPage(),
-                                                ),
-                                              );
-                                            });
-                                          },
-                                          child: Text(
-                                            "Taken",
+                                            },
+                                            child: Text(
+                                              "Cansel",
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                });
+                                          TextButton(
+                                            onPressed: () {
+                                              setState(
+                                                () {
+                                                  _addHishtoryItem(
+                                                      '${items[index]}');
+
+                                                  items.removeAt(index);
+                                                  ScaffoldMessenger.of(context)
+                                                      .clearSnackBars();
+                                                  Navigator.of(context).pop();
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          HishtoryMedicines(
+                                                              _hishtoryItmes),
+                                                    ),
+                                                  );
+                                                },
+                                              );
+                                            },
+                                            child: Text(
+                                              "Taken",
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                );
                               },
                               icon: const Icon(
                                 Icons.check_circle_outline,

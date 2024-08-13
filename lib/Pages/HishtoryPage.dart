@@ -1,37 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbols.dart';
 
-class HistoryPage extends StatelessWidget {
+class HishtoryMedicines extends StatelessWidget {
+  final List _hishtoryItems;
+  HishtoryMedicines(this._hishtoryItems);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("History"),
+        title: Text("Hishtory"),
         centerTitle: true,
+        // foregroundColor: Colors.deepPurple,
+        backgroundColor: Colors.deepPurple[100],
       ),
-      body: SafeArea(
-          child: Column(
-        children: [
-          HishtoryMedicines(
-            table: "",
-          ),
-        ],
-      )),
-    );
-  }
-}
-
-class HishtoryMedicines extends StatelessWidget {
-  final String table;
-  const HishtoryMedicines({super.key, required this.table});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 200,
-      height: 40,
-      color: Colors.amber,
-      child: Column(
-        children: [Text("Medicine Name"), Text("Time")],
+      body: ListView.builder(
+        itemCount: _hishtoryItems.length,
+        // reverse: true,
+        itemBuilder: (context, index) {
+          index = _hishtoryItems.length - 1 - index;
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              height: 90,
+              width: 200,
+              decoration: BoxDecoration(
+                color: Colors.purple[100],
+                borderRadius: BorderRadius.circular(20),
+              ),
+              padding: EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  Text(
+                    '${_hishtoryItems[index]['name']} }',
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 10),
+                  Text("Taken Time : ${_hishtoryItems[index]['date']}"),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
